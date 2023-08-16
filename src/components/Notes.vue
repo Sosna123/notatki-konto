@@ -1,13 +1,17 @@
 <template>
-    <h1>Notes:</h1>
-    <input type="text" v-model="currentNote">
-    <button @click="addNote">Submit</button>
-    <div>
-        <div v-for="note in notes" :key="note">
-            <p>{{ note }}</p>
-            <button @click="removeNote(note)">remove</button>
+    <div class="Notes">
+        <h1>Notes:</h1>
+        <input type="text" v-model="currentNote">
+        <button @click="addNote">Submit</button>
+        <button @click="displayData">TEST</button>
+        <div>
+            <div v-for="note in notes" :key="note">
+                <p>{{ note.content }}</p>
+                <button @click="removeNote(note)">remove</button>
+            </div>
         </div>
-    </div>
+        
+    </div>   
 </template>
 
 <script>
@@ -20,8 +24,10 @@ export default {
         let notes = ref([]);
 
         let addNote = () => {
-            notes.value.push(currentNote.value)
-            currentNote.value = ''
+            if(currentNote.value != '') {
+                notes.value.push({user: 'sosna', content: currentNote.value})
+                currentNote.value = ''
+            }
         }
 
         let removeNote = (note) => {
@@ -34,14 +40,35 @@ export default {
             })
         }
 
+        let displayData = () => {
+            fetchData().then((data) => {
+                console.log(data)
+                notes.value.push(...data)
+            }).catch((err) => {
+                console.log(err)
+            })
+        }
+
+        // fetche
+
+        let fetchData = async () => {
+            const response = await fetch('http://localhost:3000')
+            const data = response.json()
+            return data;
+        }
+
         return{
+            // zmienne
             currentNote, notes,
-            addNote, removeNote
+            // funkcje
+            addNote, removeNote, displayData
         }
     }
 }
 </script>
 
 <style>
-
+.Notes{
+    display: inline-block;
+}
 </style>
