@@ -3,7 +3,6 @@
         <h1>Notes:</h1>
         <input type="text" v-model="currentNote">
         <button @click="addNote">Submit</button>
-        <button @click="displayData">TEST</button>
         <div>
             <div v-for="note in notes" :key="note">
                 <p>{{ note.content }}</p>
@@ -22,6 +21,14 @@ export default {
     setup(){
         let currentNote = ref('');
         let notes = ref([]);
+
+        // fetche
+
+        let fetchData = async () => {
+            const response = await fetch('http://localhost:3000')
+            const data = response.json()
+            return data;
+        }
 
         let addNote = () => {
             if(currentNote.value != '') {
@@ -49,13 +56,8 @@ export default {
             })
         }
 
-        // fetche
-
-        let fetchData = async () => {
-            const response = await fetch('http://localhost:3000')
-            const data = response.json()
-            return data;
-        }
+        // wczytywanie notek z api
+        displayData();
 
         return{
             // zmienne
