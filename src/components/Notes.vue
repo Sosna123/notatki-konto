@@ -38,6 +38,12 @@ export default {
             })
         }
 
+        let fetchDataDelete = async (id) => {
+            fetch(`http://localhost:3000/${id}`, {
+                    method: 'DELETE'
+            })
+        }
+
         // funkcje
         let addNote = () => {
             if(currentNote.value != '') {
@@ -55,6 +61,7 @@ export default {
         let removeNote = (note) => {
             notes.value = notes.value.filter((el) => {
                 if(el == note){
+                    fetchDataDelete(note._id);
                     return false;
                 }else{
                     return true;
@@ -64,7 +71,6 @@ export default {
 
         let displayData = () => {
             fetchData().then((data) => {
-                console.log(data)
                 notes.value.push(...data)
             }).catch((err) => {
                 console.log(err)
