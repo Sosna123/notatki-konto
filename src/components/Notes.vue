@@ -20,16 +20,17 @@ export default {
     setup(){
         let currentNote = ref('');
         let notes = ref([]);
+        let apiUri = 'http://localhost:3000'
 
         // fetche
         let fetchData = async () => {
-            const response = await fetch('http://localhost:3000')
+            const response = await fetch(apiUri)
             const data = response.json()
             return data;
         }
 
         let fetchDataPost = async (data) => {
-            await fetch('http://localhost:3000', {
+            await fetch(apiUri, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,7 +40,7 @@ export default {
         }
 
         let fetchDataDelete = async (id) => {
-            fetch(`http://localhost:3000/${id}`, {
+            fetch(`${apiUri}/${id}`, {
                     method: 'DELETE'
             })
         }
