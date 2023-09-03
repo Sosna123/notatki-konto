@@ -1,15 +1,20 @@
 <template>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
     <div class="Notes">
-        <h1>Notes:</h1>
-        <input type="text" v-model="currentNote">
-        <button @click="addNote">Submit</button>
-        <ul>
+        <div>
+            <h1>Add a new note:</h1>
+            <input @keydown="enterOnInput" type="text" v-model="currentNote" class="addInput" placeholder="Add a new note!">
+            <button @click="addNote" class="addButton">Submit</button>
+        </div>
+        <ul id="notesList">
+            <h1>Your notes:</h1>
             <li v-for="note in notes" :key="note">
-                <p>{{ note.content }}</p>
-                <button @click="removeNote(note)">remove</button>
+                <p class="noteText">{{ note.content }}</p>
+                <button @click="removeNote(note)" class="material-symbols-outlined">delete</button>
             </li>
         </ul>
-    </div>   
+    </div>
 </template>
 
 <script>
@@ -78,6 +83,12 @@ export default {
             })
         }
 
+        let enterOnInput = (e) => {
+            if(e.key === 'Enter'){
+                addNote();
+            }
+        }
+
         // wczytywanie notek z api
         onMounted(() => displayData())
 
@@ -85,14 +96,55 @@ export default {
             // zmienne
             currentNote, notes,
             // funkcje
-            addNote, removeNote, displayData
+            addNote, removeNote, displayData, enterOnInput
         }
     }
 }
 </script>
 
 <style>
+/* divs */
 .Notes{
+    display: inline;
+}
+
+.Notes div{
+    background-color: grey;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 15px 20px;
+}
+
+
+/* content */
+.Notes div > h1{
+    margin-top: 0;
+}
+
+ul > li > * {
     display: inline-block;
+}
+
+.noteText{
+    font-size: 20px;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.addInput{
+    padding: 5px;
+}
+
+.addButton{
+    padding: 5px;
+}
+
+/* google icons */
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
 }
 </style>
