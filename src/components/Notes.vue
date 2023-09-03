@@ -48,7 +48,7 @@ export default {
         // funkcje
         let addNote = () => {
             if(currentNote.value != '') {
-                let pushNote = {user: 'sosna', content: currentNote.value};
+                let pushNote = {content: currentNote.value};
                 fetchDataPost(pushNote).then(() => {
                     notes.value.push(pushNote);
                     currentNote.value = '';
