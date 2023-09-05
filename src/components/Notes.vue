@@ -10,8 +10,12 @@
         <ul id="notesList">
             <h1>Your notes:</h1>
             <li v-for="note in notes" :key="note">
-                <p class="noteText">{{ note.content }}</p>
-                <button class="noteRemove material-symbols-outlined" @click="removeNote(note)">delete</button>
+                <button class="noteCheckbox noteButton" @click="editNoteComplete(note)">
+                    <p v-if="!note.isComplete" class="material-symbols-outlined">check_box_outline_blank</p>
+                    <p v-else class="material-symbols-outlined">select_check_box</p>
+                </button>
+                <p :class="{noteText: true, completeNote: note.isComplete}">{{ note.content }}</p>
+                <button class="noteButton material-symbols-outlined" @click="removeNote(note)">delete</button>
             </li>
         </ul>
     </div>
@@ -50,10 +54,20 @@ export default {
             })
         }
 
+        let fetchDataPut = async (id, note) => {
+            await fetch(`${apiUri}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(note)
+            })
+        }
+
         // funkcje
         let addNote = () => {
             if(currentNote.value != '') {
-                let pushNote = {content: currentNote.value};
+                let pushNote = {content: currentNote.value, isComplete: false};
                 fetchDataPost(pushNote).then(() => {
                     notes.value.push(pushNote);
                     currentNote.value = '';
@@ -72,6 +86,14 @@ export default {
                 }else{
                     return true;
                 }
+            })
+        }
+
+        let editNoteComplete = (note) => {
+            note.isComplete = !note.isComplete
+            fetchDataPut(note._id, note).then(()=>{
+                notes.value = []
+                displayData()
             })
         }
 
@@ -96,7 +118,7 @@ export default {
             // zmienne
             currentNote, notes,
             // funkcje
-            addNote, removeNote, displayData, enterOnInput
+            addNote, removeNote, displayData, enterOnInput, editNoteComplete
         }
     }
 }
@@ -140,11 +162,6 @@ ul{
     border: black 2px solid;
 }
 
-.addInput::placeholder{
-    color: black;
-    opacity: 1;
-}
-
 .addButton{
     padding: 0.625em;
     border-radius: 10px;
@@ -160,7 +177,7 @@ ul{
 
     /* note list */
 
-.noteRemove{
+.noteButton{
     background: crimson;
     border: black 2px solid;
     border-radius: 15px;
@@ -168,13 +185,22 @@ ul{
     text-align: center;
 }
 
-.noteRemove:hover{
+.noteButton:hover{
     background: rgb(164, 35, 61);
+}
+
+.noteButton > p{
+    margin: 0;
 }
 
 .noteText{
     font-size: 1.4375em;
     padding: 0.625em;
+}
+
+.noteText.completeNote{
+    color: grey;
+    text-decoration: line-through;
 }
 
 ul > li{
