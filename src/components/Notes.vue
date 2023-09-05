@@ -10,25 +10,34 @@
         <ul id="notesList">
             <h1>Your notes:</h1>
             <li v-for="note in notes" :key="note">
-                <button class="noteCheckbox noteButton" @click="editNoteComplete(note)">
-                    <p v-if="!note.isComplete" class="material-symbols-outlined">check_box_outline_blank</p>
-                    <p v-else class="material-symbols-outlined">select_check_box</p>
+                <button class="noteCheckbox noteButton material-symbols-outlined" @click="editNoteComplete(note)">
+                    <span v-if="!note.isComplete" class="material-symbols-outlined">check_box_outline_blank</span>
+                    <span v-else class="material-symbols-outlined">select_check_box</span>
                 </button>
                 <p :class="{noteText: true, completeNote: note.isComplete}">{{ note.content }}</p>
+                <button class="noteButton material-symbols-outlined" @click="editNoteBefore(note)">edit</button>
                 <button class="noteButton material-symbols-outlined" @click="removeNote(note)">delete</button>
             </li>
         </ul>
+    </div>
+    <div v-if="isEditing">
+        <ChangeNotePopup :oldNote="noteToEdit" @popupClosed="(newNote) => editNoteAfter(newNote)"/>
     </div>
 </template>
 
 <script>
 import { onMounted, ref } from 'vue';
+import ChangeNotePopup from './ChangeNotePopup.vue';
 
 export default {
+    components: {ChangeNotePopup},
     name: 'Home',
     setup(){
         let currentNote = ref('');
         let notes = ref([]);
+        let noteToEdit = ref({})
+        let isEditing = ref(false);
+        let noteContentBeforeEdit = ''
         let apiUri = 'http://localhost:3000'
 
         // fetche
@@ -97,6 +106,26 @@ export default {
             })
         }
 
+        let editNoteBefore = (note) => {
+            noteToEdit.value = note
+            noteContentBeforeEdit = note.content
+            isEditing.value = true
+        }
+        
+        let editNoteAfter = (note) => {
+            console.log(note)
+            isEditing.value = false
+
+            if(note.content == ''){
+                note.content = noteContentBeforeEdit;
+            }
+
+            fetchDataPut(note._id, note).then(()=>{
+                notes.value = []
+                displayData()
+            })
+        }
+
         let displayData = () => {
             fetchData().then((data) => {
                 notes.value.push(...data)
@@ -116,9 +145,9 @@ export default {
 
         return{
             // zmienne
-            currentNote, notes,
+            currentNote, notes, isEditing, noteToEdit,
             // funkcje
-            addNote, removeNote, displayData, enterOnInput, editNoteComplete
+            addNote, removeNote, displayData, enterOnInput, editNoteComplete, editNoteBefore, editNoteAfter
         }
     }
 }
@@ -160,6 +189,11 @@ ul{
     color: black;
     background: white;
     border: black 2px solid;
+    font-family: "Montserrat", sans-serif;
+}
+
+.addInput::placeholder{
+    font-family: "Montserrat", sans-serif;
 }
 
 .addButton{
@@ -194,7 +228,7 @@ ul{
 }
 
 .noteText{
-    font-size: 1.4375em;
+    font-size: 2em;
     padding: 0.625em;
 }
 
