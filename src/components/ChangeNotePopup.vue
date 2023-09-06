@@ -3,8 +3,8 @@
         <div class="popupBg">
             <div class="popupContent">
                 <h1>Change your note:</h1>
-                <input class="addInput" type="text" v-model="oldNote.content">
-                <button class="addButton" @click="$emit('popupClosed', oldNote)">Submit</button>
+                <input class="addInput" type="text" v-model="otherContent">
+                <button class="addButton" @click="oldNote.content = otherContent; $emit('popupClosed', oldNote)">Submit</button>
             </div>
         </div>
     </div>
@@ -18,9 +18,10 @@ export default{
     props: ['oldNote'],
     setup(props){
         let oldNote = props.oldNote
+        let otherContent = oldNote.content
 
         return{
-            oldNote
+            oldNote, otherContent
         }
     }
 }
