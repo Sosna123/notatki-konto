@@ -190,10 +190,12 @@ ul{
     background: white;
     border: black 2px solid;
     font-family: "Montserrat", sans-serif;
+    font-size: 1.2em;
 }
 
 .addInput::placeholder{
     font-family: "Montserrat", sans-serif;
+    font-size: 1.2em;
 }
 
 .addButton{
@@ -203,10 +205,12 @@ ul{
     background: white;
     border: black 2px solid;
     font-family: "Montserrat", sans-serif;
+    font-size: 1.2em;
 }
 
 .addButton:hover{
     background: rgb(199, 199, 199);
+    font-size: 1.2em;
 }
 
     /* note list */
@@ -243,6 +247,10 @@ ul > li{
 
 ul > li > *{
     display: inline-block;
+}
+
+h1{
+    font-size: 3em;
 }
 
 /* google icons */

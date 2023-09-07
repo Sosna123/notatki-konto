@@ -1,11 +1,9 @@
 <template>
     <div class="container">
-        <div class="popupBg">
-            <div class="popupContent">
-                <h1>Change your note:</h1>
-                <input class="addInput" type="text" v-model="otherContent">
-                <button class="addButton" @click="oldNote.content = otherContent; $emit('popupClosed', oldNote)">Submit</button>
-            </div>
+        <div class="popupContent">
+            <h1>Change your note:</h1>
+            <input class="addInput" type="text" v-model="otherContent">
+            <button class="addButton" @click="oldNote.content = otherContent; $emit('popupClosed', oldNote)">Submit</button>
         </div>
     </div>
 </template>
@@ -35,9 +33,10 @@ export default{
     width: 100%;
     height: 100%;
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.7)
 }
 
-.popupBg{
+.popupContent{
     background: rgb(127, 129, 133);
     display: inline-block;
     border-radius: 25px;
@@ -47,9 +46,6 @@ export default{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.popupContent{
     color: white;
 }
 
@@ -60,6 +56,10 @@ export default{
 
 .popupContent > input, .popupContent > button{
     font-size: 1.5em;
+}
+
+.popupContent > button.addButton:hover{
+    font-size: 1.5em
 }
 
 .popupContent > input{
