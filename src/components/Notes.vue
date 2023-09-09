@@ -38,7 +38,7 @@ export default {
         let noteToEdit = ref({})
         let isEditing = ref(false);
         let noteContentBeforeEdit = ''
-        let apiUri = 'http://localhost:3000'
+        let apiUri = 'notatki-konto-api.railway.internal'
 
         // fetche
         let fetchData = async () => {
