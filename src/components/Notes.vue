@@ -38,7 +38,7 @@ export default {
         let noteToEdit = ref({})
         let isEditing = ref(false);
         let noteContentBeforeEdit = ''
-        let apiUri = 'https://notatki-konto-api.railway.internal'
+        let apiUri = 'http://wonda.fit:3000'
 
         // fetche
         let fetchData = async () => {
