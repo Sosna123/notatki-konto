@@ -38,7 +38,7 @@ export default {
         let noteToEdit = ref({})
         let isEditing = ref(false);
         let noteContentBeforeEdit = ''
-        let apiUri = 'http://wonda.fit:3000'
+        let apiUri = 'https://2ff7-83-242-114-90.ngrok-free.app/'
 
         // fetche
         let fetchData = async () => {
@@ -130,7 +130,7 @@ export default {
             fetchData().then((data) => {
                 notes.value.push(...data)
             }).catch((err) => {
-                console.log(err)
+                // console.log(err)
             })
         }
 
