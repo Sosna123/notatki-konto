@@ -42,7 +42,12 @@ export default {
 
         // fetche
         let fetchData = async () => {
-            const response = await fetch(apiUri)
+            const response = await fetch(apiUri, {
+                method: 'GET',
+                headers: {
+                    'ngrok-skip-browser-warning': 1
+                }
+            });
             const data = response.json()
             return data;
         }
@@ -52,6 +57,7 @@ export default {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 1
                 },
                 body: JSON.stringify(data)
             })
@@ -59,7 +65,10 @@ export default {
 
         let fetchDataDelete = async (id) => {
             fetch(`${apiUri}/${id}`, {
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    headers: {
+                        'ngrok-skip-browser-warning': 1
+                    }
             })
         }
 
@@ -68,6 +77,7 @@ export default {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'ngrok-skip-browser-warning': 1
                 },
                 body: JSON.stringify(note)
             })
