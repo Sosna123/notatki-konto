@@ -10,13 +10,13 @@
         <ul id="notesList">
             <h1>Your notes:</h1>
             <li v-for="note in notes" :key="note">
-                <button class="noteCheckbox noteButton material-symbols-outlined" @click="editNoteComplete(note)">
+                    <button class="noteCheckbox noteButton material-symbols-outlined" @click="editNoteComplete(note)">
                     <span v-if="!note.isComplete" class="material-symbols-outlined">check_box_outline_blank</span>
                     <span v-else class="material-symbols-outlined">select_check_box</span>
                 </button>
-                <p :class="{noteText: true, completeNote: note.isComplete}">{{ note.content }}</p>
                 <button class="noteButton material-symbols-outlined" @click="editNoteBefore(note)">edit</button>
                 <button class="noteButton material-symbols-outlined" @click="removeNote(note)">delete</button>
+                <p :class="{noteText: true, completeNote: note.isComplete}">{{ note.content }}</p>
             </li>
         </ul>
     </div>
@@ -171,7 +171,7 @@ export default {
 }
 
 .Notes div{
-    background-color: rgba(255, 255, 255, 0.15);
+    background-color: rgb(84, 87, 92);
     padding: 1.25em;
     border-radius: 20px;
     margin: 0.9375em 1.25em;
@@ -187,7 +187,7 @@ ul{
 
 /* content */
 
-    /* note top */
+    /* top */
 
 .Notes div > h1{
     margin-top: 0;
@@ -231,6 +231,8 @@ ul{
     border-radius: 15px;
     padding: 0.3125em;
     text-align: center;
+    width: 2.5em;
+    height: 2.5em;
 }
 
 .noteButton:hover{
@@ -251,16 +253,22 @@ ul{
     text-decoration: line-through;
 }
 
-ul > li{
-    list-style: none;
-}
-
-ul > li > *{
+li > *{
     display: inline-block;
 }
 
 h1{
     font-size: 3em;
+}
+
+li{
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+li > p{
+    flex-grow: 9;
 }
 
 /* google icons */

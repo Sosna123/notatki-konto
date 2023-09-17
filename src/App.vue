@@ -15,6 +15,17 @@ body{
     padding: 0;
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    background: #36393F;
+    background: #36393f;
+}
+
+@media screen and (max-width: 700px){
+    body{
+        font-size: 10px;
+    }
+
+    button.noteButton{
+        width: 1.825em;
+        height: 1.825em;
+    }
 }
 </style>

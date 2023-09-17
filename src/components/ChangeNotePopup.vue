@@ -2,8 +2,11 @@
     <div class="container">
         <div class="popupContent">
             <h1>Change your note:</h1>
-            <input class="addInput" type="text" v-model="otherContent">
-            <button class="addButton" @click="oldNote.content = otherContent; $emit('popupClosed', oldNote)">Submit</button>
+            <input class="addInput" type="text" v-model="otherContent" @keydown="(e) => {
+                if(e.key === 'Enter'){
+                    oldNote.content = otherContent; $emit('popupClosed', oldNote)
+                }
+            }">
         </div>
     </div>
 </template>
@@ -62,7 +65,7 @@ export default{
     font-size: 1.5em
 }
 
-.popupContent > input{
+.popupContent > input.addInput{
     font-family: "Montserrat", sans-serif;
 }
 </style>
