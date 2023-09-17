@@ -64,7 +64,7 @@ export default {
         }
 
         let fetchDataDelete = async (id) => {
-            fetch(`${apiUri}/${id}`, {
+            fetch(`${apiUri}${id}`, {
                     method: 'DELETE',
                     headers: {
                         'ngrok-skip-browser-warning': 1
@@ -73,7 +73,7 @@ export default {
         }
 
         let fetchDataPut = async (id, note) => {
-            await fetch(`${apiUri}/${id}`, {
+            await fetch(`${apiUri}${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
