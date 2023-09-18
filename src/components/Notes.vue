@@ -38,7 +38,7 @@ export default {
         let noteToEdit = ref({})
         let isEditing = ref(false);
         let noteContentBeforeEdit = ''
-        let apiUri = 'https://2ff7-83-242-114-90.ngrok-free.app/'
+        let apiUri = 'https://resolved-neat-glowworm.ngrok-free.app/'
 
         // fetche
         let fetchData = async () => {
