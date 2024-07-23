@@ -65,7 +65,7 @@ export default {
         let noteToEdit = ref({});
         let isEditing = ref(false);
         let noteContentBeforeEdit = "";
-        let apiUri = "http://frog01.mikr.us:21260/";
+        let apiUri = "https://frog01-21260.wykr.es/";
 
         // fetche
         let fetchData = async () => {
